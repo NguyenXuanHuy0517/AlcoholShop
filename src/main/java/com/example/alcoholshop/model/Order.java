@@ -2,7 +2,10 @@ package com.example.alcoholshop.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import com.example.alcoholshop.model.OrderItem;
 
 /**
  * Order model class representing customer orders
@@ -16,7 +19,7 @@ public class Order {
     private String status;
     private LocalDateTime createdAt;
     private List<OrderItem> orderItems;
-    
+
     // Constructors
     public Order() {}
     
@@ -92,10 +95,24 @@ public class Order {
     }
     
     /**
-     * Get formatted total price
+     * Get formatted total price (null-safe)
      */
     public String getFormattedTotal() {
-        return String.format("$%.2f", total);
+        BigDecimal amount = (this.total != null) ? this.total : getTotalAmount();
+        if (amount == null) {
+            return "$0.00";
+        }
+        return String.format("$%.2f", amount.doubleValue());
+    }
+
+    /**
+     * Provide a java.util.Date representation of the order date for JSP fmt:formatDate
+     */
+    public Date getOrderDate() {
+        if (this.createdAt == null) {
+            return null;
+        }
+        return Date.from(this.createdAt.atZone(ZoneId.systemDefault()).toInstant());
     }
     
     /**
@@ -142,5 +159,14 @@ public class Order {
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+    public BigDecimal getTotalAmount() {
+        if (orderItems == null || orderItems.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+
+        return orderItems.stream()
+                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

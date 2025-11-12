@@ -7,23 +7,37 @@
 <jsp:include page="../includes/topmenu.jsp" />
 
 <div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-            <div class="position-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/admin/dashboard">
-                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-gold" href="${pageContext.request.contextPath}/admin/products">
-                            <i class="fas fa-box me-2"></i>Products
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/admin/dashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-gold" href="${pageContext.request.contextPath}/admin/products">
+                        <i class="fas fa-box me-2"></i>Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/admin/orders">
+                        <i class="fas fa-shopping-cart me-2"></i>Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/admin/users">
+                        <i class="fas fa-users me-2"></i>Users
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/admin/contacts">
+                        <i class="fas fa-envelope me-2"></i>Messages
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -107,14 +121,31 @@
 </div>
 
 <style>
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    padding: 48px 0 0;
-}
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        padding: 48px 0 0;
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    }
+
+    .sidebar .nav-link {
+        color: #333;
+        border-radius: 0;
+        padding: 0.75rem 1rem;
+    }
+
+    .sidebar .nav-link:hover {
+        color: var(--primary-gold);
+        background-color: rgba(212, 175, 55, 0.1);
+    }
+
+    .sidebar .nav-link.active {
+        color: var(--primary-gold);
+        background-color: rgba(212, 175, 55, 0.2);
+    }
 </style>
 
 <jsp:include page="../includes/footer.jsp" />

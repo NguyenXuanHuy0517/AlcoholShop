@@ -203,7 +203,7 @@
                                                 </td>
                                                 <td>${user.email}</td>
                                                 <td>
-                                                    <fmt:formatDate value="${user.birthDate}" pattern="MMM dd, yyyy" />
+                                                        ${user.birthDate}
                                                 </td>
                                                 <td style="max-width:200px;">
                                                     <small class="text-muted">${user.address}</small>
@@ -219,7 +219,7 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <fmt:formatDate value="${user.createdAt}" pattern="MMM dd, yyyy" />
+                                                        ${user.birthDate}
                                                 </td>
                                                 <td>
                                                     <div class="btn-group" role="group">

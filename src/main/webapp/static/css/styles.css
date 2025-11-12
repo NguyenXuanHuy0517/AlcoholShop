@@ -19,7 +19,7 @@
     /* Text Colors */
     --text-primary: #FFFFFF;
     --text-secondary: #E0E0E0;
-    --text-muted: #B0B0B0;
+    --text-muted: #D9C49C;
     --text-dark: #1E1E1E;
     
     /* Background Colors */
@@ -670,4 +670,21 @@ footer::before {
 ::-moz-selection {
     background: var(--primary-gold);
     color: var(--text-dark);
+}
+
+
+/* ép .text-muted dùng biến mới (dễ override khi cần) */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* placeholder dùng muted */
+.form-control::placeholder {
+    color: var(--text-muted);
+    opacity: 1; /* một số trình duyệt làm placeholder mờ hơn, ép luôn */
+}
+
+/* nếu có chế độ dark-specific (nếu bạn muốn khác tone cho dark mode) */
+[data-bs-theme="dark"] {
+    --text-muted: #E6D8B5; /* tuỳ chọn: be sáng hơn cho background tối */
 }

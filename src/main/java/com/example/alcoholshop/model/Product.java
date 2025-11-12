@@ -138,6 +138,18 @@ public class Product {
     }
     
     /**
+     * Convenience accessor so JSP/EL can use `${product.active}`
+     */
+    public boolean isActive() {
+        return isInStock();
+    }
+
+    // also provide getActive for frameworks that expect getX naming
+    public boolean getActive() {
+        return isActive();
+    }
+
+    /**
      * Get formatted price string
      */
     public String getFormattedPrice() {
@@ -163,4 +175,3 @@ public class Product {
                 '}';
     }
 }
-

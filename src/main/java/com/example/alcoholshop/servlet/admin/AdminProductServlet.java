@@ -127,15 +127,17 @@ public class AdminProductServlet extends HttpServlet {
     }
     
     /**
-     * Show product list
+     * Show product list — load full list and allow client-side filtering in JSP
      */
     private void showProductList(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        // Always load the full product list from DB; filtering handled client-side in JSP
         List<Product> products = productDAO.findAll();
         List<Category> categories = categoryDAO.findAll();
 
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
+        request.setAttribute("totalProducts", products != null ? products.size() : 0);
 
         try {
             request.getRequestDispatcher("/pages/admin/products.jsp").forward(request, response);

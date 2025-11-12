@@ -16,7 +16,9 @@ public class UserAccount {
     private LocalDate birthDate;
     private String address;
     private LocalDateTime createdAt;
-    
+    // active flag (not persisted yet unless DB schema updated)
+    private boolean active = true;
+
     // Constructors
     public UserAccount() {}
     
@@ -103,7 +105,15 @@ public class UserAccount {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+
+    public boolean isActiveFlag() {
+        return active;
+    }
+
+    public void setActiveFlag(boolean active) {
+        this.active = active;
+    }
+
     /**
      * Check if user is admin
      */
@@ -126,7 +136,18 @@ public class UserAccount {
         return birthDate.plusYears(18).isBefore(LocalDate.now()) || 
                birthDate.plusYears(18).isEqual(LocalDate.now());
     }
-    
+
+    /**
+     * Convenience methods for JSP/EL and server-side filters
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    public boolean getActive() {
+        return isActive();
+    }
+
     @Override
     public String toString() {
         return "UserAccount{" +
@@ -140,4 +161,3 @@ public class UserAccount {
                 '}';
     }
 }
-

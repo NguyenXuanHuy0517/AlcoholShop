@@ -98,9 +98,9 @@
                                 <div>
                                     <h6 class="text-gold mb-1">Address</h6>
                                     <p class="text-secondary mb-0">
-                                        123 Premium Street<br>
-                                        Luxury District, City 12345<br>
-                                        Country
+                                        UNETI<br>
+                                        ngõ 218, đường Lĩnh Nam<br>
+                                        Hoàng Mai, Hà Nội
                                     </p>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                 <div>
                                     <h6 class="text-gold mb-1">Phone</h6>
                                     <p class="text-secondary mb-0">
-                                        +1 (555) 123-4567<br>
+                                        (+84)868686868<br>
                                         Mon-Fri: 9AM-6PM
                                     </p>
                                 </div>
@@ -129,7 +129,7 @@
                                 <div>
                                     <h6 class="text-gold mb-1">Email</h6>
                                     <p class="text-secondary mb-0">
-                                        info@alcoholshop.com<br>
+                                        3anhemsieunhan@alcoholshop.com<br>
                                         support@alcoholshop.com
                                     </p>
                                 </div>

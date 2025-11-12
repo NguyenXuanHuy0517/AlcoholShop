@@ -48,9 +48,9 @@
                 <h1 class="h2 text-gold">Admin Dashboard</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
-                        <button type="button" class="btn btn-outline-primary">
+                        <a href="${pageContext.request.contextPath}/admin/dashboard?action=exportPdf" class="btn btn-outline-primary">
                             <i class="fas fa-download me-1"></i>Export
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -135,41 +135,41 @@
                             <div class="table-responsive">
                                 <table class="table table-dark table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Customer</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <c:choose>
-                                            <c:when test="${not empty recentOrders}">
-                                                <c:forEach var="order" items="${recentOrders}">
-                                                    <tr>
-                                                        <td>#${order.id}</td>
-                                                        <td>${order.userFullname}</td>
-                                                        <td class="text-gold">
-                                                            <fmt:formatNumber value="${order.totalAmount}" type="currency" currencySymbol="$" />
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge bg-${order.status == 'PENDING' ? 'warning' : order.status == 'CONFIRMED' ? 'info' : order.status == 'SHIPPED' ? 'primary' : order.status == 'DELIVERED' ? 'success' : 'danger'}">
-                                                                ${order.status}
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <fmt:formatDate value="${order.orderDate}" pattern="MMM dd, yyyy" />
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </c:when>
-                                            <c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${not empty recentOrders}">
+                                            <c:forEach var="order" items="${recentOrders}">
                                                 <tr>
-                                                    <td colspan="5" class="text-center text-muted">No recent orders</td>
+                                                    <td>#${order.id}</td>
+                                                    <td>${order.userFullname}</td>
+                                                    <td class="text-gold">
+                                                        <fmt:formatNumber value="${order.total}" type="currency" currencySymbol="$" />
+                                                    </td>
+                                                    <td>
+                                                            <span class="badge bg-${order.status == 'PENDING' ? 'warning' : order.status == 'CONFIRMED' ? 'info' : order.status == 'SHIPPED' ? 'primary' : order.status == 'DELIVERED' ? 'success' : 'danger'}">
+                                                                    ${order.status}
+                                                            </span>
+                                                    </td>
+                                                    <td>
+                                                        <fmt:formatDate value="${order.orderDate}" pattern="MMM dd, yyyy" />
+                                                    </td>
                                                 </tr>
-                                            </c:otherwise>
-                                        </c:choose>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted">No recent orders</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
                                     </tbody>
                                 </table>
                             </div>
@@ -236,53 +236,53 @@
 </div>
 
 <style>
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    padding: 48px 0 0;
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
-
-.sidebar .nav-link {
-    color: #333;
-    border-radius: 0;
-    padding: 0.75rem 1rem;
-}
-
-.sidebar .nav-link:hover {
-    color: var(--primary-gold);
-    background-color: rgba(212, 175, 55, 0.1);
-}
-
-.sidebar .nav-link.active {
-    color: var(--primary-gold);
-    background-color: rgba(212, 175, 55, 0.2);
-}
-
-.border-left-primary {
-    border-left: 0.25rem solid var(--primary-gold) !important;
-}
-
-.border-left-success {
-    border-left: 0.25rem solid #28a745 !important;
-}
-
-.border-left-info {
-    border-left: 0.25rem solid #17a2b8 !important;
-}
-
-.border-left-warning {
-    border-left: 0.25rem solid #ffc107 !important;
-}
-
-@media (max-width: 767.98px) {
     .sidebar {
-        top: 5rem;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        padding: 48px 0 0;
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     }
-}
+
+    .sidebar .nav-link {
+        color: #333;
+        border-radius: 0;
+        padding: 0.75rem 1rem;
+    }
+
+    .sidebar .nav-link:hover {
+        color: var(--primary-gold);
+        background-color: rgba(212, 175, 55, 0.1);
+    }
+
+    .sidebar .nav-link.active {
+        color: var(--primary-gold);
+        background-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .border-left-primary {
+        border-left: 0.25rem solid var(--primary-gold) !important;
+    }
+
+    .border-left-success {
+        border-left: 0.25rem solid #28a745 !important;
+    }
+
+    .border-left-info {
+        border-left: 0.25rem solid #17a2b8 !important;
+    }
+
+    .border-left-warning {
+        border-left: 0.25rem solid #ffc107 !important;
+    }
+
+    @media (max-width: 767.98px) {
+        .sidebar {
+            top: 5rem;
+        }
+    }
 </style>
 
 <jsp:include page="../includes/footer.jsp" />

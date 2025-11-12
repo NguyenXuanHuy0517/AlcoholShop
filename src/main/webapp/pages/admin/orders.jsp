@@ -54,7 +54,21 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- flash messages -->
+            <c:if test="${not empty sessionScope.success}">
+                <div class="alert alert-success" role="alert">
+                    ${sessionScope.success}
+                </div>
+                <c:remove var="success" scope="session" />
+            </c:if>
+            <c:if test="${not empty sessionScope.error}">
+                <div class="alert alert-danger" role="alert">
+                    ${sessionScope.error}
+                </div>
+                <c:remove var="error" scope="session" />
+            </c:if>
+
             <!-- Order Statistics -->
             <div class="row mb-4">
                 <div class="col-xl-3 col-md-6 mb-4">
@@ -238,31 +252,40 @@
                                                     <fmt:formatNumber value="${order.total}" type="currency" currencySymbol="$" />
                                                 </td>
                                                 <td>
-                                                    <span class="badge ${order.status == 'PENDING' ? 'bg-warning' : order.status == 'CONFIRMED' ? 'bg-info' : order.status == 'SHIPPED' ? 'bg-primary' : order.status == 'DELIVERED' ? 'bg-success' : 'bg-danger'}">
+                                                    <span class="badge ${order.status == 'PENDING' ? 'bg-warning' : order.status == 'CONFIRMED' ? 'bg-info' : order.status == 'SHIPPED' ? 'bg-primary' : order.status == 'DELIVERED' ? 'bg-success' : order.status == 'COMPLETE' ? 'bg-secondary' : 'bg-danger'}">
                                                          ${order.status}
                                                      </span>
                                                  </td>
                                                  <td>
-                                                    <fmt:formatDate value="${order.createdAt}" pattern="MMM dd, yyyy" />
-                                                    <br>
+                                                         ${order.createdAt}
+                                                     <br>
                                                     <small class="text-muted">
-                                                        <fmt:formatDate value="${order.createdAt}" pattern="HH:mm" />
+                                                            ${order.createdAt}
                                                     </small>
                                                  </td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                        <a href="${pageContext.request.contextPath}/admin/orders?action=view&id=${order.id}" 
-                                                           class="btn btn-outline-info btn-sm">
-                                                            <i class="fas fa-eye"></i>
+                                                        <a href="${pageContext.request.contextPath}/admin/orders?action=update&id=${order.id}&status=CONFIRMED"
+                                                           class="btn btn-outline-success btn-sm"
+                                                           title="Set to Confirmed">
+                                                            <i class="fas fa-check"></i>
                                                         </a>
-                                                        <a href="${pageContext.request.contextPath}/admin/orders?action=edit&id=${order.id}" 
-                                                           class="btn btn-outline-primary btn-sm">
-                                                            <i class="fas fa-edit"></i>
+
+                                                        <a href="${pageContext.request.contextPath}/admin/orders?action=update&id=${order.id}&status=DELIVERED"
+                                                           class="btn btn-outline-primary btn-sm"
+                                                           title="Set to Delivered">
+                                                            <i class="fas fa-truck"></i>
+                                                        </a>
+
+                                                        <a href="${pageContext.request.contextPath}/admin/orders?action=update&id=${order.id}&status=SHIPPED"
+                                                           class="btn btn-outline-secondary btn-sm"
+                                                           title="Set to Shipped">
+                                                            <i class="fas fa-shipping-fast"></i>
                                                         </a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
+                                        </c:forEach>`
                                     </c:when>
                                     <c:otherwise>
                                         <tr>
