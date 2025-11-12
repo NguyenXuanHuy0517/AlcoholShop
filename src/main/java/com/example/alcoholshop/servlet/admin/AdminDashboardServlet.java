@@ -1,13 +1,8 @@
 package com.example.alcoholshop.servlet.admin;
 
-import com.example.alcoholshop.dao.OrderDAO;
-import com.example.alcoholshop.dao.ProductDAO;
-import com.example.alcoholshop.dao.UserDAO;
-import com.example.alcoholshop.dao.ContactDAO;
-import com.example.alcoholshop.dao.impl.OrderDAOImpl;
-import com.example.alcoholshop.dao.impl.ProductDAOImpl;
-import com.example.alcoholshop.dao.impl.UserDAOImpl;
-import com.example.alcoholshop.dao.impl.ContactDAOImpl;
+import com.example.alcoholshop.dao.*;
+import com.example.alcoholshop.dao.impl.*;
+import com.example.alcoholshop.model.Category;
 import com.example.alcoholshop.model.UserAccount;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,7 +24,7 @@ import java.util.Map;
 @WebServlet("/admin/dashboard")
 public class AdminDashboardServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(AdminDashboardServlet.class);
-    
+    private CategoryDAO categoryDAO;
     private ProductDAO productDAO;
     private OrderDAO orderDAO;
     private UserDAO userDAO;
@@ -40,13 +36,16 @@ public class AdminDashboardServlet extends HttpServlet {
         orderDAO = new OrderDAOImpl();
         userDAO = new UserDAOImpl();
         contactDAO = new ContactDAOImpl();
+        categoryDAO = new CategoryDAOImpl();
         logger.info("AdminDashboardServlet initialized");
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        // Get all categories for navigation
+        List<Category> categories = categoryDAO.findAll();
+        request.setAttribute("categories", categories);
         HttpSession session = request.getSession(false);
         if (session == null) {
             response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp");
