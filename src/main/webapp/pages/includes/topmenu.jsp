@@ -1,5 +1,27 @@
+<%@ page import="com.example.alcoholshop.dao.impl.CategoryDAOImpl" %>
+<%@ page import="com.example.alcoholshop.dao.CategoryDAO" %>
+<%@ page import="com.example.alcoholshop.model.Category" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%
+    // --- 1. TẠO LIST MẪU (dev) VÀ ĐẶT VÀO request SCOPE ---
+    // đặt TRƯỚC phần HTML dùng ${categories} !
+
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(1, "Whiskey"));
+        categories.add(new Category(2, "Vodka"));
+        categories.add(new Category(3, "Wine"));
+        categories.add(new Category(4, "Beer"));
+        categories.add(new Category(5, "Liqueur"));
+        request.setAttribute("categories", categories); // quan trọng
+
+%>
+
+
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
         <!-- Brand -->

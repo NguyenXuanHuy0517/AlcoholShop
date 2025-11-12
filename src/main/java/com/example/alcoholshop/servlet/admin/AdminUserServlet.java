@@ -1,7 +1,10 @@
 package com.example.alcoholshop.servlet.admin;
 
+import com.example.alcoholshop.dao.CategoryDAO;
 import com.example.alcoholshop.dao.UserDAO;
+import com.example.alcoholshop.dao.impl.CategoryDAOImpl;
 import com.example.alcoholshop.dao.impl.UserDAOImpl;
+import com.example.alcoholshop.model.Category;
 import com.example.alcoholshop.model.UserAccount;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,10 +26,11 @@ public class AdminUserServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(AdminUserServlet.class);
     
     private UserDAO userDAO;
-    
+    private CategoryDAO categoryDAO;
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAOImpl();
+        categoryDAO = new CategoryDAOImpl();
         logger.info("AdminUserServlet initialized");
     }
     
@@ -39,7 +43,9 @@ public class AdminUserServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp");
             return;
         }
-        
+        // Get all categories for navigation
+        List<Category> categories = categoryDAO.findAll();
+        request.setAttribute("categories", categories);
         UserAccount currentUser = (UserAccount) session.getAttribute("currentUser");
         if (currentUser == null || !currentUser.isAdmin()) {
             response.sendRedirect(request.getContextPath() + "/pages/error/403.jsp");
