@@ -11,7 +11,6 @@
             <div class="card bg-glass mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 text-gold">Contact Message Details</h5>
-                    <a href="${pageContext.request.contextPath}/admin/contacts" class="btn btn-outline-secondary btn-sm">Back to messages</a>
                 </div>
                 <div class="card-body">
                     <c:if test="${not empty message}">
@@ -33,16 +32,26 @@
 
                             <dt class="col-sm-3">Message</dt>
                             <dd class="col-sm-9" style="white-space:pre-wrap;">${message.message}</dd>
-0
+
                             <dt class="col-sm-3">Received</dt>
                             <dd class="col-sm-9">
-                                <fmt:formatDate value="${message.createdAtAsDate}" pattern="MMM dd, yyyy HH:mm" />
+                                <c:choose>
+                                    <c:when test="${not empty message.createdAtAsDate}">
+                                        <fmt:formatDate value="${message.createdAtAsDate}" pattern="MMM dd, yyyy HH:mm" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="text-muted">-</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </dd>
                         </dl>
                     </c:if>
                     <c:if test="${empty message}">
                         <div class="alert alert-warning">Message not found.</div>
                     </c:if>
+                </div>
+                <div class="card-footer">
+                    <a href="${pageContext.request.contextPath}/admin/contacts" class="btn btn-outline-secondary">Back to Messages</a>
                 </div>
             </div>
         </div>

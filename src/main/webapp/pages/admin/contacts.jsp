@@ -68,9 +68,9 @@
                             <label for="status" class="form-label text-gold">Status</label>
                             <select class="form-select" id="status" name="status">
                                 <option value="">All Status</option>
-                                <option value="new" ${param.status == 'new' ? 'selected' : ''}>New</option>
-                                <option value="read" ${param.status == 'read' ? 'selected' : ''}>Read</option>
-                                <option value="replied" ${param.status == 'replied' ? 'selected' : ''}>Replied</option>
+                                <option value="NEW" ${param.status == 'NEW' ? 'selected' : ''}>New</option>
+                                <option value="READ" ${param.status == 'READ' ? 'selected' : ''}>Read</option>
+                                <option value="REPLIED" ${param.status == 'REPLIED' ? 'selected' : ''}>Replied</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -93,7 +93,7 @@
             <div class="card bg-glass">
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-gold">
-                        <i class="fas fa-list me-2"></i>Messages (${messages.size()})
+                        <i class="fas fa-list me-2"></i>Messages (<c:out value="${fn:length(messages)}"/>)
                     </h6>
                 </div>
                 <div class="card-body p-0">
@@ -109,28 +109,52 @@
                                 <c:when test="${not empty messages}">
                                     <c:forEach var="message" items="${messages}">
                                         <tr>
-                                            <td>${message.id}</td>
-                                            <td><strong>${message.name}</strong></td>
-                                            <td><a href="mailto:${message.email}" class="text-gold">${message.email}</a></td>
-                                            <td><strong>${message.subject}</strong></td>
+                                            <td><c:out value="${message.id}"/></td>
+                                            <td><strong><c:out value="${message.name}"/></strong></td>
+                                            <td><a href="mailto:${message.email}" class="text-gold"><c:out value="${message.email}"/></a></td>
+                                            <td><strong><c:out value="${message.subject}"/></strong></td>
                                             <td>
                                                 <div class="message-preview">
                                                     <c:choose>
                                                         <c:when test="${fn:length(message.message) > 50}">
-                                                            ${fn:substring(message.message, 0, 50)}...
+                                                            <c:out value="${fn:substring(message.message, 0, 50)}"/>...
                                                         </c:when>
                                                         <c:otherwise>
-                                                            ${message.message}
+                                                            <c:out value="${message.message}"/>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </div>
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${message.createdAtAsDate}" pattern="MMM dd, yyyy" />
-                                                <br><small class="text-muted"><fmt:formatDate value="${message.createdAtAsDate}" pattern="HH:mm" /></small>
+                                                <c:choose>
+                                                    <c:when test="${not empty message.createdAtAsDate}">
+                                                        <fmt:formatDate value="${message.createdAtAsDate}" pattern="MMM dd, yyyy" />
+                                                        <br><small class="text-muted"><fmt:formatDate value="${message.createdAtAsDate}" pattern="HH:mm" /></small>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="text-muted">-</span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </td>
                                             <td>
-                                                <span class="badge ${message.status == 'NEW' ? 'bg-warning' : message.status == 'READ' ? 'bg-info' : 'bg-success'}">${message.status}</span>
+                                                <c:choose>
+                                                    <c:when test="${not empty message.status}">
+                                                        <c:choose>
+                                                            <c:when test="${fn:toUpperCase(message.status) == 'NEW'}">
+                                                                <span class="badge bg-warning"><c:out value="${message.status}"/></span>
+                                                            </c:when>
+                                                            <c:when test="${fn:toUpperCase(message.status) == 'READ'}">
+                                                                <span class="badge bg-info"><c:out value="${message.status}"/></span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span class="badge bg-success"><c:out value="${message.status}"/></span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="badge bg-secondary">UNKNOWN</span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group">
